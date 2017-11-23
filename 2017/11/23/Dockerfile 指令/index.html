@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java��SpringBoot��SpringCloud" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Dockerfile 指令1.CMDCMD指令用于指定一个容器启动时要运行的命令。类似于Run指令，而CMD指容器被启动时执行的指令。[Dockerfile中只能有一条CMD] 类似：123docker run CMD [&quot;/bin/true&quot;]CMD [&quot;/bin/bash&quot;,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jinliang123">
+<meta property="og:url" content="http://yoursite.com/2017/11/23/Dockerfile 指令/index.html">
+<meta property="og:site_name" content="jinliang123">
+<meta property="og:description" content="Dockerfile 指令1.CMDCMD指令用于指定一个容器启动时要运行的命令。类似于Run指令，而CMD指容器被启动时执行的指令。[Dockerfile中只能有一条CMD] 类似：123docker run CMD [&quot;/bin/true&quot;]CMD [&quot;/bin/bash&quot;,&quot;-1&quot;] 2.ENTRYPOINTENTRYPOINT指令与CMD指令非常类似，ENTRYPONT指令不容易在容器启动">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-23T06:52:31.946Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jinliang123">
+<meta name="twitter:description" content="Dockerfile 指令1.CMDCMD指令用于指定一个容器启动时要运行的命令。类似于Run指令，而CMD指容器被启动时执行的指令。[Dockerfile中只能有一条CMD] 类似：123docker run CMD [&quot;/bin/true&quot;]CMD [&quot;/bin/bash&quot;,&quot;-1&quot;] 2.ENTRYPOINTENTRYPOINT指令与CMD指令非常类似，ENTRYPONT指令不容易在容器启动">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/23/Dockerfile 指令/"/>
+
+
+
+
+
+  <title> | jinliang123</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">jinliang123</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/23/Dockerfile 指令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jin liang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jinliang123">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-23T14:52:41+08:00">
+                2017-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Dockerfile-指令"><a href="#Dockerfile-指令" class="headerlink" title="Dockerfile 指令"></a>Dockerfile 指令</h2><h3 id="1-CMD"><a href="#1-CMD" class="headerlink" title="1.CMD"></a>1.CMD</h3><pre><code>CMD指令用于指定一个容器启动时要运行的命令。类似于Run指令，而CMD指容器被启动时执行的指令。[Dockerfile中只能有一条CMD]
+</code></pre><p>类似：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run </span><br><span class="line">CMD [<span class="string">"/bin/true"</span>]</span><br><span class="line">CMD [<span class="string">"/bin/bash"</span>,<span class="string">"-1"</span>]</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-ENTRYPOINT"><a href="#2-ENTRYPOINT" class="headerlink" title="2.ENTRYPOINT"></a>2.ENTRYPOINT</h2><pre><code>ENTRYPOINT指令与CMD指令非常类似，ENTRYPONT指令不容易在容器启动时被覆盖。实际上 docker run 命令行中的任何参数都会被当作参数再次传递给ENTRYPOINT中的指令。
+</code></pre><p>类似：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ENTRYPOINT [<span class="string">"/usr/sbin/nginx"</span>]</span><br><span class="line">ENTRYPOINT [<span class="string">"/usr/sbin/nginx"</span>,<span class="string">"-g"</span>,<span class="string">"daemon off;"</span>]</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-WORKDIR"><a href="#3-WORKDIR" class="headerlink" title="3.WORKDIR"></a>3.WORKDIR</h2><pre><code>WORKDIR  指令用来在从镜像创建一个新容器时，在容器内部设置一个工作目录，ENTRYPOINT或CMD指定的程序会在这个目录执行。
+</code></pre><p>example:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">WORKDIR /opt/webapp/db</span><br><span class="line">RUN bundle install</span><br><span class="line">WORKDIR /opt/webapp</span><br><span class="line">ENTRYPOINT [<span class="string">"rackup"</span>]</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-ENV"><a href="#4-ENV" class="headerlink" title="4.ENV"></a>4.ENV</h2><pre><code>ENV 指令用来在镜像构建过程中设置环境变量。也可以使用 docker run 命令行的-e标志来传递环境变量。[运行时有效]
+</code></pre><p>example:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ENV RVM_PATH /home/rvm/</span><br><span class="line">ENV TARGET_DIR /opt/app</span><br><span class="line">WORKDIR <span class="variable">$TARGET_DIR</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="5-USER"><a href="#5-USER" class="headerlink" title="5.USER"></a>5.USER</h2><pre><code>USER指令用来指定该镜像会以什么样的用户去运行。默认为 root
+</code></pre><h2 id="6-VOLUME"><a href="#6-VOLUME" class="headerlink" title="6.VOLUME"></a>6.VOLUME</h2><pre><code>VOLUME 指令用来向基于镜像的容器添加卷。一个卷是可以存在于一个或者多个容器内的特定的目录，这个目录可以绕过联合文件系统，并提供如下共享数据或者对数据进行持久化的功能。
+</code></pre><ul>
+<li>卷可以在容器间共享和重用</li>
+<li>一个容器可以不是必须和其他容器共享卷</li>
+<li>对卷的修改是立即生效的</li>
+<li>对卷的修改不会对更新镜像产生影响</li>
+<li>卷会一直存在直到没有容器再使用它</li>
+<li>docker cp  允许从容器复制文件以及复制文件到容器</li>
+</ul>
+<p>example<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">VOLUME [<span class="string">"/opt/project"</span>]</span><br><span class="line">VOLUME [<span class="string">"/opt/project"</span>,<span class="string">"/data"</span>]</span><br></pre></td></tr></table></figure></p>
+<h2 id="7-ADD"><a href="#7-ADD" class="headerlink" title="7.ADD"></a>7.ADD</h2><pre><code>ADD 指令用来将构建环境下的文件和目录复制到镜像中。比如，在安装一个应用时。ADD指令需要源文件位置和目的文件位置两个参数。
+</code></pre><p>example<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ADD software.lic /opt/application/software.lic</span><br><span class="line">ADD http://wordpress.org/latest.zip /root/wordpress.zip</span><br></pre></td></tr></table></figure></p>
+<h2 id="8-COPY"><a href="#8-COPY" class="headerlink" title="8.COPY"></a>8.COPY</h2><pre><code>COPY 指令非常类似于 ADD，它们的根本区别是COPY只关心在构建上下文中复制本地文件，而不会去做文件提取和解压的工作.[copy只能复制与Dockdrfile同一目录下的文件]
+</code></pre><p>example<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COPY conf.d/  /etc/apache2/</span><br></pre></td></tr></table></figure></p>
+<h2 id="9-LABEL"><a href="#9-LABEL" class="headerlink" title="9.LABEL"></a>9.LABEL</h2><pre><code>LABEL 指令用于为 Docker镜像添加元数据，元数据以键值对的形式出现。
+</code></pre><p>example<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LABEL version=<span class="string">"1.0.1"</span></span><br><span class="line">LABEL location=<span class="string">"ShangHai"</span> <span class="built_in">type</span>=<span class="string">"Data Center"</span></span><br><span class="line">docker inspect 容器名 查看</span><br></pre></td></tr></table></figure></p>
+<h2 id="10-STOPSIGANAL"><a href="#10-STOPSIGANAL" class="headerlink" title="10.STOPSIGANAL"></a>10.STOPSIGANAL</h2><pre><code>STOPSIGANL 指令用来设置停止容器时发送什么系统调用信号给容器。
+</code></pre><h2 id="11-ARG"><a href="#11-ARG" class="headerlink" title="11.ARG"></a>11.ARG</h2><pre><code>ARG指令用来定义可以在 docker build 命令运行时传递给构建运行时的变量，我们只需要在构建时使用--build-arg 标志即可。
+</code></pre><p>example<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ARG build</span><br><span class="line">ARG webapp_user=user</span><br><span class="line">docker build --build-arg build=1234 -t 容器名</span><br><span class="line">结果：build =1234 webapp_user=user</span><br></pre></td></tr></table></figure></p>
+<h2 id="12-ONBUILD"><a href="#12-ONBUILD" class="headerlink" title="12.ONBUILD"></a>12.ONBUILD</h2><pre><code>ONBUILD 指令能为镜像添加触发器。当一个镜像被用做其他镜像的基础镜像时，该镜像中的触发器将会被执行。
+</code></pre><p>example<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ONBUILD ADD . /app/src</span><br><span class="line">ONBUILD RUN <span class="built_in">cd</span> /app/src &amp;&amp; make`</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/22/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jin liang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile-指令"><span class="nav-number">1.</span> <span class="nav-text">Dockerfile 指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-CMD"><span class="nav-number">1.1.</span> <span class="nav-text">1.CMD</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-ENTRYPOINT"><span class="nav-number">2.</span> <span class="nav-text">2.ENTRYPOINT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-WORKDIR"><span class="nav-number">3.</span> <span class="nav-text">3.WORKDIR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-ENV"><span class="nav-number">4.</span> <span class="nav-text">4.ENV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-USER"><span class="nav-number">5.</span> <span class="nav-text">5.USER</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-VOLUME"><span class="nav-number">6.</span> <span class="nav-text">6.VOLUME</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-ADD"><span class="nav-number">7.</span> <span class="nav-text">7.ADD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-COPY"><span class="nav-number">8.</span> <span class="nav-text">8.COPY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-LABEL"><span class="nav-number">9.</span> <span class="nav-text">9.LABEL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-STOPSIGANAL"><span class="nav-number">10.</span> <span class="nav-text">10.STOPSIGANAL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-ARG"><span class="nav-number">11.</span> <span class="nav-text">11.ARG</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-ONBUILD"><span class="nav-number">12.</span> <span class="nav-text">12.ONBUILD</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jin liang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
